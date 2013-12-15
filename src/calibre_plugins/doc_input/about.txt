@@ -1,0 +1,10 @@
+Doc converter
+===========================
+Doc conveter using microsoft tool Wordconv.exe downloaded from http://www.microsoft.com/en-us/download/details.aspx?id=3.
+Converter uses native docx conversion. 
+
+Created by David Ignjic
+
+Requires calibre >= 1.15.0
+
+
