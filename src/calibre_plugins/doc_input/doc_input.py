@@ -14,23 +14,12 @@ class PluginWidget(Widget, Ui_Form):
 
     TITLE = _('DOC Input')
     COMMIT_NAME = 'doc_input'
-    ICON = I('forward.png')
+    ICON = I('mimetypes/docx.png')
     HELP = _('Options specific to the input format.')
+
     def __init__(self, parent, get_option, get_help, db=None, book_id=None):
+        import traceback
+        traceback.print_stack()
         Widget.__init__(self, parent,
             ['docx_no_cover', 'wordconv_exe_path'])
         self.initialize_options(get_option, get_help, db, book_id)
-
-
-class PluginConfig(PluginWidget):        
-    ICON = I('mimetypes/docx.png')
-    HELP = _('Options specific to')+' DOC '+_('input')
-
-class InputOptions(BaseInputOptions):
-
-    def load_conversion_widgets(self):
-        super(InputOptions, self).load_conversion_widgets()
-        self.conversion_widgets.append(PluginConfig)
-    
-     
-

@@ -7,8 +7,14 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
-from PyQt4.Qt import QFileDialog
+try:
+    from PyQt5 import Qt as QtGui
+    from PyQt5 import QtCore
+    from PyQt5.Qt import QFileDialog
+except ImportError as e:
+    from PyQt4 import QtCore, QtGui
+    from PyQt4.Qt import QFileDialog
+
 from calibre.gui2 import SanitizeLibraryPath
 import os
 
@@ -55,6 +61,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
     def fileSearch(self):
         use_native_dialog = 'CALIBRE_NO_NATIVE_FILEDIALOGS' not in os.environ
         filterString = 'wordconv.exe (wordconv.exe)'
@@ -65,8 +72,10 @@ class Ui_Form(object):
                 opts |= QFileDialog.DontUseNativeDialog
             selectedFile = QFileDialog.getOpenFileName(parent=self, caption=_('Find wordconv.exe'),directory = self.opt_wordconv_exe_path.text(),filter = filterString,options=opts)
             if selectedFile:
-                self.opt_wordconv_exe_path.setText( selectedFile)
-        
+                selectedFile = selectedFile[0] if isinstance(selectedFile, tuple) else selectedFile
+                if selectedFile and os.path.exists(selectedFile):
+                    self.opt_wordconv_exe_path.setText(selectedFile)
+
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "Form", None))
         self.label.setText(_translate("Form", "<html><head/><body><p>Microsoft conversion program Wordconv.exe.Usually is placed in &quot;c:\\Program Files (x86)\\Microsoft Office\\Office12\\Wordconv.exe&quot;. You can dowload from <a href=\"http://www.microsoft.com/en-us/download/details.aspx?id=3\"><span style=\" text-decoration: underline; color:#0000ff;\">microsoft page.</span></a></p></body></html>", None))

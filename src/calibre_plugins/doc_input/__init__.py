@@ -11,10 +11,6 @@ __copyright__ = '2013, David Ignjic <ignjic at gmail.com>'
 from calibre.customize.conversion import InputFormatPlugin, OptionRecommendation
 
 from calibre.customize.builtins import plugins
-for plugin in plugins:
-    if plugin.name == 'Input Options':
-        plugin.config_widget = 'calibre_plugins.doc_input.doc_input:InputOptions'
-        break 
      
 class DOCInput(InputFormatPlugin):
 
@@ -24,6 +20,7 @@ class DOCInput(InputFormatPlugin):
     supported_platforms = ['windows']
     file_types = {'doc'}
     minimum_calibre_version = (1, 15, 0)
+    version = (1, 0, 1)
 
     options = {
         OptionRecommendation(name='wordconv_exe_path', recommended_value='c:\Program Files\Microsoft Office\Office12\Wordconv.exe', 
